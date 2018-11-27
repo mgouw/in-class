@@ -1,29 +1,31 @@
 'use strict';
 
-
 // Class Puppy
 class Puppy {
     // Constructor: takes in an img url, and a sound
-    constructor(img="../imgs/complete.png", sound="WOOF!") {
+    constructor(
+            img = "https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe", 
+            sound = "WOOF!"
+                ) {
         this.img = img;
         this.sound = sound;
     }
+
     // Method for "speaking" using responsiveVoice
     bark() {
         responsiveVoice.speak(this.sound);
     }
+
     // Render a Div that you can click on to bark
     render() {
         let puppyCard = $('<div>');
         puppyCard.attr('title', `puppy that says ${this.sound}`);
         puppyCard.attr('class', 'puppyCard col-sm-4');
-        puppyCard.attr('background-image', `url(${this.img})`);
-        puppyCard.append(`<img src=${this.img}` class='puppyCard/img');
-        puppyCard.click( () => this.bark() );
+        puppyCard.css('background-image', `url(${this.img})`);
+        puppyCard.click(() => this.bark());
         return puppyCard;
     }
 }
-
 
 // Class Form
 class PuppyForm {
@@ -73,7 +75,7 @@ class PuppyApp {
     addPuppy(img, sound) {
         console.log(this);
         this.puppyList.push({
-            url: img, 
+            url: img,
             sound: sound
         });
         this.render();
@@ -91,7 +93,7 @@ class PuppyApp {
         // Append puppy list element to parent (in a wrapper div)
         let puppyWrapper = $('<div class="row">');
         this.parentElement.append(puppyWrapper);
-        this.puppyList.map( (puppyInfo) => {
+        this.puppyList.map((puppyInfo) => {
             let newPuppy = new Puppy(puppyInfo.url, puppyInfo.sound);
             puppyWrapper.append(newPuppy.render());
         });
@@ -100,11 +102,12 @@ class PuppyApp {
 
 // Create a new app with a single puppy
 let app = new PuppyApp(
-    $('#content'), 
+    $('#content'),
     [{
-        url: "../imgs/complete.png",
-        bark: "WOOF!"
+        url: "https://www.popsci.com/sites/popsci.com/files/styles/1000_1x_/public/images/2017/10/terrier-puppy.jpg?itok=rIgh3ArV&fc=50,50",
+        sound: "bark bark"
     }]
-)
+);
 
 // Render the app
+app.render();
